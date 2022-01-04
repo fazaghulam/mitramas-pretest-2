@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import CardData from "../components/CardData";
 import CardModal from "../components/CardModal";
 
 export default function Dashboard() {
@@ -10,7 +11,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard h-screen px-8 py-10">
       <CardModal show={showModal} close={() => setShowModal(false)} />
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-10">
         <div className="flex">
           <div className="bg-white w-60 shadow-xl h-10 px-4 rounded-lg flex border-2 border-transparent">
             <input
@@ -42,6 +43,7 @@ export default function Dashboard() {
           + New Data
         </button>
       </div>
+      <CardData />
     </div>
   );
 }
