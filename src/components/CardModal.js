@@ -80,8 +80,6 @@ export default function CardModal({ item, show, close }) {
       });
   };
 
-  console.log(status);
-
   if (!show) return null;
 
   return (

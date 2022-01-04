@@ -1,6 +1,6 @@
 export default function CardData({ item }) {
   return (
-    <div className="relative bg-white shadow-lg rounded-lg h-40 w-96 px-6 py-4 cursor-pointer">
+    <div className="relative bg-white shadow-lg rounded-lg h-40 w-full px-6 py-4 cursor-pointer">
       <div className="flex justify-end">
         <svg className="w-6 h-6 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path

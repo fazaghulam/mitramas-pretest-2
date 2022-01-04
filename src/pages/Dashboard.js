@@ -12,6 +12,7 @@ export default function Dashboard() {
   const [sort, setSort] = useState("asc");
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [selItem, setSelItem] = useState({});
 
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function Dashboard() {
       .then((resp) => {
         if (resp.status === 200) {
           setData(resp.data.data);
+          setFilteredData(resp.data.data);
         }
       })
       .catch((err) => {
@@ -42,6 +44,41 @@ export default function Dashboard() {
     setShowModal(false);
     setSelItem({});
   };
+
+  useEffect(() => {
+    if (status === "true") {
+      const filteredData = data.filter((list) => list.status == true);
+      setFilteredData(filteredData);
+    } else if (status === "false") {
+      const filteredData = data.filter((list) => list.status == false);
+      setFilteredData(filteredData);
+    } else {
+      setFilteredData(data);
+    }
+  }, [status]);
+
+  useEffect(() => {
+    if (sort === "dsc") {
+      const sortedData = filteredData.sort((a, b) => {
+        var nameA = a.name.toUpperCase();
+        var nameB = b.name.toUpperCase();
+        return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+      });
+      setFilteredData(sortedData);
+    } else if (sort === "asc") {
+      const sortedData = filteredData.sort((a, b) => {
+        var nameA = a.name.toUpperCase();
+        var nameB = b.name.toUpperCase();
+        return nameA < nameB ? 1 : nameA > nameB ? -1 : 0;
+      });
+      setFilteredData(sortedData);
+    }
+  }, [sort]);
+
+  useEffect(() => {
+    const filteredList = data.filter((list) => list.name.toString().toLowerCase().includes(search.toLowerCase()));
+    setFilteredData(filteredList);
+  }, [search]);
 
   return (
     <div className="px-8 py-10">
@@ -79,7 +116,7 @@ export default function Dashboard() {
         </button>
       </div>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-        {data.map((item, idx) => (
+        {filteredData.map((item, idx) => (
           <div key={idx} onClick={() => handleCard(item)}>
             <CardData item={item} />
           </div>
