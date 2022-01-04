@@ -12,6 +12,7 @@ export default function Dashboard() {
   const [sort, setSort] = useState("asc");
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([]);
+  const [selItem, setSelItem] = useState({});
 
   useEffect(() => {
     axios
@@ -30,11 +31,21 @@ export default function Dashboard() {
           navigate(`/login`);
         }
       });
-  }, []);
+  }, [showModal]);
+
+  const handleCard = (item) => {
+    setSelItem(item);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+    setSelItem({});
+  };
 
   return (
     <div className="px-8 py-10">
-      <CardModal show={showModal} close={() => setShowModal(false)} />
+      <CardModal item={selItem} show={showModal} close={handleClose} />
       <div className="flex justify-between mb-10">
         <div className="flex">
           <div className="bg-white w-60 shadow-xl h-10 px-4 rounded-lg flex border-2 border-transparent">
@@ -69,7 +80,9 @@ export default function Dashboard() {
       </div>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
         {data.map((item, idx) => (
-          <CardData key={idx} id={item.id} name={item.name} description={item.description} status={item.status} />
+          <div key={idx} onClick={() => handleCard(item)}>
+            <CardData item={item} />
+          </div>
         ))}
       </div>
     </div>

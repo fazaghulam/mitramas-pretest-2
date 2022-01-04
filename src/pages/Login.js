@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
@@ -25,6 +25,7 @@ export default function Login() {
       .then((resp) => {
         if (resp.status === 200) {
           localStorage.setItem("user-token", resp.data.access_token);
+          <Navigate to={{ pathname: "/" }} />;
           navigate(`/`);
         }
         setLoading(false);
