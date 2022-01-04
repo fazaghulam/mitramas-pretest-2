@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
+  let navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -11,7 +15,25 @@ export default function Login() {
     }
   };
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    setLoading(true);
+    axios
+      .post("https://mitramas-test.herokuapp.com/auth/login", {
+        email,
+        password,
+      })
+      .then((resp) => {
+        if (resp.status === 200) {
+          localStorage.setItem("user-token", resp.data.access_token);
+          navigate(`/`);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
 
   return (
     <div className="flex h-screen justify-center items-center">
