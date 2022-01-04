@@ -28,15 +28,15 @@
   color: #61dafb;
 }
 
-.card {
-  background-color: #F8F9FB;
-}
-
 .green-btn {
   background-color: #056676;
 }
 .green-btn:hover {
   background-color: #093f47;
+}
+
+.dashboard {
+  background-color: #E3E3E3;
 }
 
 @keyframes App-logo-spin {
