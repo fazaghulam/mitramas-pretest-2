@@ -1,40 +1,15 @@
 import { useState, useEffect } from "react";
-
-const statusOptions = [
-  {
-    label: "All",
-    value: "all",
-  },
-  {
-    label: "True",
-    value: "true",
-  },
-  {
-    label: "False",
-    value: "false",
-  },
-];
-
-const sortOptions = [
-  {
-    label: "Ascending",
-    value: "asc",
-  },
-  {
-    label: "Descending",
-    value: "dsc",
-  },
-];
+import CardModal from "../components/CardModal";
 
 export default function Dashboard() {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("all");
   const [sort, setSort] = useState("asc");
-
-  const handleCreate = () => {};
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="dashboard h-screen px-8 py-10">
+      <CardModal show={showModal} close={() => setShowModal(false)} />
       <div className="flex justify-between">
         <div className="flex">
           <div className="bg-white w-60 shadow-xl h-10 px-4 rounded-lg flex border-2 border-transparent">
@@ -63,7 +38,7 @@ export default function Dashboard() {
             <option value="dsc">Descending</option>
           </select>
         </div>
-        <button className="green-btn rounded-lg shadow-xl text-white font-semibold px-8 py-2" onClick={handleCreate} type="submit">
+        <button className="green-btn rounded-lg shadow-xl text-white font-semibold px-8 py-2" onClick={() => setShowModal(true)} type="submit">
           + New Data
         </button>
       </div>
