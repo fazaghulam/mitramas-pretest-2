@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function CardModal({ item, show, close }) {
   const [id, setId] = useState(null);
@@ -24,23 +25,36 @@ export default function CardModal({ item, show, close }) {
   }, [show]);
 
   const handleUpdate = () => {
-    setLoading(true);
-    axios
-      .put(
-        "https://mitramas-test.herokuapp.com/motor",
-        { id, name, description, status },
-        { headers: { Authorization: localStorage.getItem("user-token") } }
-      )
-      .then((resp) => {
-        if (resp.status === 200) {
-          setLoading(false);
-          close();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure want to edit this data?",
+      icon: "warning",
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: "Update",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setLoading(true);
+        axios
+          .put(
+            "https://mitramas-test.herokuapp.com/motor",
+            { id, name, description, status },
+            { headers: { Authorization: localStorage.getItem("user-token") } }
+          )
+          .then((resp) => {
+            if (resp.status === 200) {
+              Swal.fire("Success", "Your data has been updated!", "success");
+              setLoading(false);
+              close();
+            }
+          })
+          .catch((err) => {
+            Swal.fire("Oops...", "Something went wrong!", "error");
+            console.log(err);
+            setLoading(false);
+          });
+      }
+    });
   };
   const handleCreate = () => {
     setLoading(true);
@@ -52,32 +66,48 @@ export default function CardModal({ item, show, close }) {
       )
       .then((resp) => {
         if (resp.status === 200) {
+          Swal.fire("Success", "Your data has been created!", "success");
           setLoading(false);
           close();
         }
       })
       .catch((err) => {
+        Swal.fire("Oops...", "Something went wrong!", "error");
         console.log(err);
         setLoading(false);
       });
   };
   const handleDelete = () => {
-    setDelLoading(true);
-    axios
-      .delete("https://mitramas-test.herokuapp.com/motor", {
-        headers: { Authorization: localStorage.getItem("user-token") },
-        data: { id },
-      })
-      .then((resp) => {
-        if (resp.status === 200) {
-          setDelLoading(false);
-          close();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setDelLoading(false);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure want to delete this data?",
+      icon: "warning",
+      confirmButtonColor: "#d33",
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setDelLoading(true);
+        axios
+          .delete("https://mitramas-test.herokuapp.com/motor", {
+            headers: { Authorization: localStorage.getItem("user-token") },
+            data: { id },
+          })
+          .then((resp) => {
+            if (resp.status === 200) {
+              Swal.fire("Success", "Your data has been deleted!", "success");
+              setDelLoading(false);
+              close();
+            }
+          })
+          .catch((err) => {
+            Swal.fire("Oops...", "Something went wrong!", "error");
+            console.log(err);
+            setDelLoading(false);
+          });
+      }
+    });
   };
 
   if (!show) return null;
