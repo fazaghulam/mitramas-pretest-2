@@ -1,15 +1,39 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import CardData from "../components/CardData";
 import CardModal from "../components/CardModal";
 
 export default function Dashboard() {
+  let navigate = useNavigate();
+
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("all");
   const [sort, setSort] = useState("asc");
   const [showModal, setShowModal] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://mitramas-test.herokuapp.com/motor", {
+        headers: {
+          Authorization: localStorage.getItem("user-token"),
+        },
+      })
+      .then((resp) => {
+        if (resp.status === 200) {
+          setData(resp.data.data);
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          navigate(`/login`);
+        }
+      });
+  }, []);
 
   return (
-    <div className="dashboard h-screen px-8 py-10">
+    <div className="px-8 py-10">
       <CardModal show={showModal} close={() => setShowModal(false)} />
       <div className="flex justify-between mb-10">
         <div className="flex">
@@ -43,7 +67,11 @@ export default function Dashboard() {
           + New Data
         </button>
       </div>
-      <CardData />
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+        {data.map((item, idx) => (
+          <CardData key={idx} id={item.id} name={item.name} description={item.description} status={item.status} />
+        ))}
+      </div>
     </div>
   );
 }

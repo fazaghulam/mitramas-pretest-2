@@ -36,7 +36,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen justify-center items-center">
+    <div className="login flex h-screen justify-center items-center">
       <div className="card w-96 h-1/2 px-2 md:px-4 lg:px-8 py-14 rounded-md shadow-lg">
         <p className="text-black text-base md:text-lg lg:text-xl font-bold w-full text-center mb-12">Login into account</p>
         <div className="bg-white shadow-xl h-10 md:h-12 px-4 rounded-lg flex border-2 border-transparent mt-4 focus-within:border-emerald-700">

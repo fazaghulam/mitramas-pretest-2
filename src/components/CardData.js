@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function CardData() {
+export default function CardData({ id, name, description, status }) {
   const [show, setShow] = useState(false);
 
   const handleShow = (e) => {
@@ -32,13 +32,16 @@ export default function CardData() {
         <div className="px-2 hover:bg-gray-300 rounded-b-md">delete</div>
       </div>
       <div className="flex">
-        <p>Name:</p>
+        <p className="mr-2 font-semibold">Name:</p>
+        <p>{name}</p>
       </div>
       <div className="flex mt-3">
-        <p>Description:</p>
+        <p className="mr-2 font-semibold">Description:</p>
+        <p className="truncate">{description}</p>
       </div>
       <div className="flex mt-3">
-        <p>Status:</p>
+        <p className="mr-2 font-semibold">Status:</p>
+        <p>{status.toString()}</p>
       </div>
     </div>
   );
