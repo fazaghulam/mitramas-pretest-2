@@ -7,7 +7,7 @@ function App() {
   const isLoggedIn = localStorage.getItem("user-token") ? localStorage.getItem("user-token") : false;
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={window.location.pathname || ""}>
       <Switch>
         <Route path="/login" component={() => <Login />} />
         <Route exact path="/" component={() => (isLoggedIn ? <Dashboard /> : <Redirect to={{ pathname: "/login" }} />)} />

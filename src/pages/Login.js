@@ -22,7 +22,7 @@ export default function Login() {
       .then((resp) => {
         if (resp.status === 200) {
           localStorage.setItem("user-token", resp.data.access_token);
-          window.location.href = "/";
+          window.location.href = "https://fazaghulam.github.io/mitramas-pretest-2/";
           setLoading(false);
         }
       })
