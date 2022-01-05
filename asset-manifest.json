@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/mitramas-pretest-2/static/css/main.57db7b99.css",
+    "main.js": "/mitramas-pretest-2/static/js/main.1bbcd52d.js",
+    "static/js/787.3569a0ce.chunk.js": "/mitramas-pretest-2/static/js/787.3569a0ce.chunk.js",
+    "index.html": "/mitramas-pretest-2/index.html",
+    "main.57db7b99.css.map": "/mitramas-pretest-2/static/css/main.57db7b99.css.map",
+    "main.1bbcd52d.js.map": "/mitramas-pretest-2/static/js/main.1bbcd52d.js.map",
+    "787.3569a0ce.chunk.js.map": "/mitramas-pretest-2/static/js/787.3569a0ce.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.57db7b99.css",
+    "static/js/main.1bbcd52d.js"
+  ]
+}
