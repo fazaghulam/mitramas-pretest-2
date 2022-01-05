@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
-  let navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,13 +22,11 @@ export default function Login() {
       .then((resp) => {
         if (resp.status === 200) {
           localStorage.setItem("user-token", resp.data.access_token);
-          <Navigate to={{ pathname: "/" }} />;
-          navigate(`/`);
+          window.location.href = "/";
+          setLoading(false);
         }
-        setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setLoading(false);
       });
   };

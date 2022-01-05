@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import CardData from "../components/CardData";
 import CardModal from "../components/CardModal";
 
 export default function Dashboard() {
-  let navigate = useNavigate();
+  let history = useHistory();
 
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("all");
@@ -30,7 +30,7 @@ export default function Dashboard() {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          navigate(`/login`);
+          history.push("/login");
         }
       });
   }, [showModal]);
@@ -47,10 +47,10 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (status === "true") {
-      const filteredData = data.filter((list) => list.status == true);
+      const filteredData = data.filter((list) => list.status === true);
       setFilteredData(filteredData);
     } else if (status === "false") {
-      const filteredData = data.filter((list) => list.status == false);
+      const filteredData = data.filter((list) => list.status === false);
       setFilteredData(filteredData);
     } else {
       setFilteredData(data);
