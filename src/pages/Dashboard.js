@@ -84,8 +84,8 @@ export default function Dashboard() {
     <div className="px-8 py-10">
       <CardModal item={selItem} show={showModal} close={handleClose} />
       <div className="flex justify-between mb-10">
-        <div className="flex">
-          <div className="bg-white w-60 shadow-xl h-10 px-4 rounded-lg flex border-2 border-transparent">
+        <div className="w-3/5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="bg-white shadow-xl h-10 px-4 rounded-lg flex border-2 border-transparent">
             <input
               className="w-11/12 h-full rounded-lg outline-none bg-white placeholder-gray-600 text-gray-600"
               type="text"
@@ -99,19 +99,23 @@ export default function Dashboard() {
               </svg>
             </div>
           </div>
-          <p className="ml-8 mr-2 self-center font-bold">status:</p>
-          <select className="border rounded-lg shadow-xl w-60 text-sm px-2 py-1 w-full" value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="all">all</option>
-            <option value="true">true</option>
-            <option value="false">false</option>
-          </select>
-          <p className="ml-8 mr-2 self-center font-bold">sort by name:</p>
-          <select className="border rounded-lg shadow-xl w-60 text-sm px-2 py-1 w-full" value={sort} onChange={(e) => setSort(e.target.value)}>
-            <option value="asc">Ascending</option>
-            <option value="dsc">Descending</option>
-          </select>
+          <div className="flex">
+            <p className="mr-2 self-center font-bold">status:</p>
+            <select className="border rounded-lg shadow-xl text-sm px-2 py-1 w-full" value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option value="all">all</option>
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </select>
+          </div>
+          <div className="flex">
+            <p className="mr-2 self-center font-bold text-sm">sort by name:</p>
+            <select className="border rounded-lg shadow-xl text-sm px-2 py-1 w-full" value={sort} onChange={(e) => setSort(e.target.value)}>
+              <option value="asc">Ascending</option>
+              <option value="dsc">Descending</option>
+            </select>
+          </div>
         </div>
-        <button className="green-btn rounded-lg shadow-xl text-white font-semibold px-8 py-2" onClick={() => setShowModal(true)} type="submit">
+        <button className="green-btn rounded-lg h-10 shadow-xl text-white font-semibold px-8 py-2" onClick={() => setShowModal(true)} type="submit">
           + New Data
         </button>
       </div>
